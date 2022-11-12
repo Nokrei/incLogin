@@ -1,0 +1,24 @@
+.form {
+  width: 300px;
+  margin: auto;
+  padding-top: 20px;
+}
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 10px;
+}
+.inputGroup input {
+  margin-top: 5px;
+  padding: 10px;
+  border: 1px solid transparent;
+  background-color: rgb(48, 48, 48);
+  color: #fff;
+  border-radius: 5px;
+}
+.error {
+  color: rgb(255, 34, 34);
+}
+.form button {
+  margin-top: 5px;
+}
