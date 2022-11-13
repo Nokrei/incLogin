@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { NEXT_URL } from "../config/index";
+import axios from "axios";
 
 const AuthContext = createContext();
 
@@ -13,17 +13,16 @@ export const AuthProvider = ({ children }) => {
 
   // Login user
   const login = async (user) => {
-    const res = await fetch(`${NEXT_URL}/api/login`, {
+    const res = await axios({
       method: "POST",
+      url: "/api/login",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(user),
+      data: JSON.stringify(user),
     });
-    const data = await res.json();
-
-    if (res.ok) {
-      setUser(data.user);
+    if (res.status === 200) {
+      setUser(res.data.user);
       router.push("/home");
     } else {
       setError(data.message);
@@ -33,11 +32,11 @@ export const AuthProvider = ({ children }) => {
 
   // Logout user
   const logout = async () => {
-    const res = await fetch(`${NEXT_URL}/api/logout`, {
+    const res = await axios({
       method: "POST",
+      url: "/api/logout",
     });
-
-    if (res.ok) {
+    if (res.status === 200) {
       setUser(null);
       router.push("/");
     }
@@ -45,13 +44,10 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Check if user is logged in
-
   const checkUserLoggedIn = async (user) => {
-    const res = await fetch(`${NEXT_URL}/api/user`);
-    const data = await res.json();
-
-    if (res.ok) {
-      setUser(data);
+    const res = await axios.get("/api/user");
+    if (res.status === 200) {
+      setUser(res.data);
       setLoading(false);
     } else {
       setUser(null);
@@ -60,8 +56,10 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    checkUserLoggedIn();
-  }, []);
+    if (router.pathname === "/home") {
+      checkUserLoggedIn();
+    }
+  }, [router.pathname]);
 
   return (
     <AuthContext.Provider value={{ user, error, login, logout, loading }}>

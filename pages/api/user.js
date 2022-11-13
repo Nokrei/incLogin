@@ -8,7 +8,7 @@ const persistUser = async (req, res) => {
     }
 
     const { token } = cookie.parse(req.headers.cookie);
-    const user = { username: "incard", password: "incard" };
+    const user = { username: "incard" };
 
     if (token === "847329842398982fsdhjfs9823yfe") {
       res.status(200).json(user);

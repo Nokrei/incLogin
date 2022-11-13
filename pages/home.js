@@ -17,11 +17,11 @@ export default function HomePage() {
     <Layout>
       {user ? (
         <div>
-          <h1>You are logged in</h1>
+          <h1>You are logged in.</h1>
         </div>
       ) : (
         <div>
-          <h1>Loading...</h1>
+          <h1>You need to be logged in to view this page.</h1>
         </div>
       )}
     </Layout>

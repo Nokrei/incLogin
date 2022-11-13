@@ -19,7 +19,6 @@ const login = async (req, res) => {
       res.status(200).json({
         user: {
           username: incard,
-          password: incard,
         },
       });
     } else {
