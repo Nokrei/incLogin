@@ -13,20 +13,20 @@ export const AuthProvider = ({ children }) => {
 
   // Login user
   const login = async (user) => {
-    const res = await axios({
-      method: "POST",
-      url: "/api/login",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: JSON.stringify(user),
-    });
-    if (res.status === 200) {
+    try {
+      const res = await axios({
+        method: "POST",
+        url: "/api/login",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: JSON.stringify(user),
+      });
+      setError(null);
       setUser(res.data.user);
       router.push("/home");
-    } else {
-      setError(data.message);
-      setError(null);
+    } catch (e) {
+      setError(e.response.data.message);
     }
   };
 
@@ -45,21 +45,19 @@ export const AuthProvider = ({ children }) => {
 
   // Check if user is logged in
   const checkUserLoggedIn = async (user) => {
-    const res = await axios.get("/api/user");
-    if (res.status === 200) {
+    try {
+      const res = await axios.get("/api/user");
       setUser(res.data);
       setLoading(false);
-    } else {
+    } catch (e) {
       setUser(null);
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    if (router.pathname === "/home") {
-      checkUserLoggedIn();
-    }
-  }, [router.pathname]);
+    checkUserLoggedIn();
+  }, []);
 
   return (
     <AuthContext.Provider value={{ user, error, login, logout, loading }}>

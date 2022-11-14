@@ -22,7 +22,7 @@ const login = async (req, res) => {
         },
       });
     } else {
-      res.status(500).json({ message: "Something went wrong" });
+      res.status(500).json({ message: "Incorrect username or password" });
     }
   } else {
     res.setHeader("Allow", ["POST"]);

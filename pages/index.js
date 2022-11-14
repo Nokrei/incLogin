@@ -5,7 +5,7 @@ import styles from "../styles/Login.module.css";
 export default function Login() {
   return (
     <Layout>
-      <div className={styles.home}>
+      <div className={styles.login}>
         <h1>Welcome to Incard</h1>
         <Form />
       </div>

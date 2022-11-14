@@ -40,6 +40,7 @@ export default function Form() {
           <span className={styles.error}>Please input valid password</span>
         )}
       </div>
+      <p className={styles.error}>{error}</p>
       <button type="submit" className="btn btn-primary">
         Log in
       </button>
