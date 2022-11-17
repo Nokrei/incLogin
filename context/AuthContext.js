@@ -47,6 +47,7 @@ export const AuthProvider = ({ children }) => {
   const checkUserLoggedIn = async (user) => {
     try {
       const res = await axios.get("/api/user");
+      console.log(res.data);
       setUser(res.data);
       setLoading(false);
     } catch (e) {
