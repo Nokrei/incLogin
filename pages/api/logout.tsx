@@ -1,6 +1,6 @@
 import cookie from "cookie";
 
-const logout = async (req, res) => {
+const logout = async (req: any, res: any) => {
   if (req.method === "POST") {
     // Destroy cookie
     res.setHeader(

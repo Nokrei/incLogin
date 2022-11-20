@@ -2,7 +2,7 @@ import cookie from "cookie";
 
 const incard = "incard";
 
-const login = async (req, res) => {
+const login = async (req: any, res: any) => {
   if (req.method === "POST") {
     const { username, password } = req.body;
     if (username === incard && password === incard) {

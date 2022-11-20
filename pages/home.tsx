@@ -8,10 +8,10 @@ export default function HomePage() {
   const { user, loading } = useContext(AuthContext);
 
   useEffect(() => {
-    if (!user) {
+    if (!user && !loading) {
       router.push("/");
     }
-  }, [user]);
+  }, [user, router, loading]);
 
   return (
     <Layout>

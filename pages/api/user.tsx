@@ -1,6 +1,6 @@
 import cookie from "cookie";
 
-const persistUser = async (req, res) => {
+const persistUser = async (req: any, res: any) => {
   if (req.method === "GET") {
     if (!req.headers.cookie) {
       res.status(403).json({ message: "Not Authorized" });

@@ -2,9 +2,19 @@ import { createContext, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 
-const AuthContext = createContext();
+type contextType = {
+  user: object;
+  loading?: boolean;
+  error?: any;
+  login?: Function;
+  logout?: Function;
+};
 
-export const AuthProvider = ({ children }) => {
+const obj: contextType = { user: { name: "user" } };
+
+const AuthContext = createContext(obj);
+
+export const AuthProvider = ({ children }: { children: any }) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -12,7 +22,7 @@ export const AuthProvider = ({ children }) => {
   const router = useRouter();
 
   // Login user
-  const login = async (user) => {
+  const login = async (user: object) => {
     try {
       const res = await axios({
         method: "POST",
@@ -25,7 +35,7 @@ export const AuthProvider = ({ children }) => {
       setError(null);
       setUser(res.data.user);
       router.push("/home");
-    } catch (e) {
+    } catch (e: any) {
       setError(e.response.data.message);
     }
   };
@@ -44,7 +54,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Check if user is logged in
-  const checkUserLoggedIn = async (user) => {
+  const checkUserLoggedIn = async () => {
     try {
       const res = await axios.get("/api/user");
       console.log(res.data);
@@ -61,7 +71,9 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, error, login, logout, loading }}>
+    <AuthContext.Provider
+      value={{ user: { name: "user" }, error, login, logout, loading }}
+    >
       {children}
     </AuthContext.Provider>
   );
